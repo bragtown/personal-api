@@ -115,3 +115,19 @@ app.post('/skills', function (request, response){
 	response.type('application/json');
 	response.send(request.body);	
 });
+app.put('/skills/:id', function (request, response){
+	response.setHeader('Access-Control-Allow-Origin', '*');
+	if (request.body.experience){
+		skills.skills[request.query.id -1].experience = request.body.experience;
+	}
+	if (request.body.name){
+		skills.skills[request.query.id -1].name = request.body.name;
+	}
+	response.send(skills.skills[request.query.id -1].experience);
+});
+app.delete('/skills/:id', function (request, response){ //defines root path of our function. if someone does a get request, handle it here
+	response.type('application/json');
+	response.setHeader('Access-Control-Allow-Origin', '*');
+	delete skills.skills[request.query.id - 1];
+	response.send("deleted");
+});
